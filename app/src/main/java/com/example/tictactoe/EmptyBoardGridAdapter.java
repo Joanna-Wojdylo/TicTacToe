@@ -10,15 +10,19 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class EmptyBoardGridAdapter extends BaseAdapter {
 
     private Context mContext;
     public int[] board_cells_array = new int[100];
+    //public int[] already_used_cells = new int[100];
+    public List<Integer> already_used_cells = new ArrayList<>(); // !we work on interface not class
 
-    public EmptyBoardGridAdapter(Context mContext, int[] board_cells_array) {
+    public EmptyBoardGridAdapter(Context mContext, int[] board_cells_array, List<Integer> already_used_cells) {
         this.mContext = mContext;
         this.board_cells_array = board_cells_array;
+        this.already_used_cells = already_used_cells;
     }
 
     @Override
@@ -49,4 +53,12 @@ public class EmptyBoardGridAdapter extends BaseAdapter {
     public void setEmptyBoardArray(int[] board_cells_array){
         Arrays.fill(board_cells_array,R.drawable.empty_ring);
     };
+    @Override
+    public boolean isEnabled(int position)
+    {
+        if(already_used_cells.contains(position))
+            return false;
+        else
+            return true;
+    }
 }

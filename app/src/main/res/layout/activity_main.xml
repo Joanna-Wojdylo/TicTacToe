@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@drawable/noc"
+    android:background="#000"
     >
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="30dp"
-        android:src="@drawable/dots"
+        android:src="@drawable/logo2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

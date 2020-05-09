@@ -13,18 +13,30 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DoublePlayer extends AppCompatActivity {
     int[] board_cells_array = new int[100];
+    List<Integer> already_used_cells = new ArrayList<>();
+    private boolean playerPinkTurn;
+    private int roundCount = 0; //based on round count we will start with pink or blue in turns - pair pink, odd blue
+    private EmptyBoardGridAdapter boardAdapter;
+    //data needed to create matrix
+    private int numberOfColumns = 10;
+    private int x;
+    private int y;
+    public DoublePlayer() {
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_double_player);
+
         final GridView gameBoard = (GridView) findViewById(R.id.board_grid_view);
         Button restartGameButton = (Button) findViewById(R.id.restartGame);
-        final EmptyBoardGridAdapter boardAdapter;
+
 
 
         System.out.println("saved instance " + savedInstanceState);
@@ -33,11 +45,13 @@ public class DoublePlayer extends AppCompatActivity {
         }
         else{
             System.out.println(" yes it was " + null);
-            cleanGameBoard(board_cells_array);
+            cleanGameBoard();
         }
         System.out.println(Arrays.toString(board_cells_array));
-        boardAdapter = new EmptyBoardGridAdapter(this, board_cells_array);
+        boardAdapter = new EmptyBoardGridAdapter(this, board_cells_array, already_used_cells);
         gameBoard.setAdapter(boardAdapter);
+
+        playerPinkTurn = roundCount % 2 == 0; //for pair counted rounds pink player will start
 
 
         //On Click event for Single GridView Item
@@ -45,9 +59,24 @@ public class DoublePlayer extends AppCompatActivity {
         gameBoard.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView imageView = (ImageView) view;
-                imageView.setImageResource(R.drawable.pink);
-                board_cells_array[position] = R.drawable.pink;
+                ImageView single_cell_image = (ImageView) view;
+                //single_cell_image.setImageResource(R.drawable.pink);
+
+                //we need row and column instead of index to write down to matrix
+                // x : horizontal position in range [0; columns-1]
+                // y : vertical position in range [0; rows-1]
+
+                x = position % numberOfColumns;
+                y = position / numberOfColumns;
+
+
+                if(playerPinkTurn){
+                    board_cells_array[position] = R.drawable.pink;}
+                else{
+                    board_cells_array[position] = R.drawable.blue;}
+                already_used_cells.add(position);
+                boardAdapter.notifyDataSetChanged();
+                playerPinkTurn = !playerPinkTurn;
                 System.out.println(Arrays.toString(board_cells_array));
             }
 
@@ -55,8 +84,7 @@ public class DoublePlayer extends AppCompatActivity {
 
         restartGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                cleanGameBoard(board_cells_array);
-                boardAdapter.notifyDataSetChanged();
+                restartGame();
             }
         });
 
@@ -66,11 +94,16 @@ public class DoublePlayer extends AppCompatActivity {
         super.onSaveInstanceState(state);
         state.putIntArray("Board cells", board_cells_array);
         System.out.println("Saved" + Arrays.toString(board_cells_array));
-
     }
 
-    protected void cleanGameBoard(int[] board_cells_array){
+    protected void cleanGameBoard(){
         Arrays.fill(board_cells_array,R.drawable.empty_ring);
+        already_used_cells.clear();
+    }
+    protected void restartGame(){
+        cleanGameBoard();
+        boardAdapter.notifyDataSetChanged();
+        roundCount++;
     }
 
 }
