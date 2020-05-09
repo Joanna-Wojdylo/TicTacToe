@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,11 +23,13 @@ public class DoublePlayer extends AppCompatActivity {
     List<Integer> already_used_cells = new ArrayList<>();
     private boolean playerPinkTurn;
     private int roundCount = 0; //based on round count we will start with pink or blue in turns - pair pink, odd blue
+    private int pinkWins = 0;
+    private int blueWins = 0;
     private EmptyBoardGridAdapter boardAdapter;
     //data needed to create matrix
-    private int numberOfColumns = 10;
-    private int x;
-    private int y;
+    private int gridSize = 10;
+    private BackendMatrix backendMatrix;
+
     public DoublePlayer() {
     }
 
@@ -42,16 +47,26 @@ public class DoublePlayer extends AppCompatActivity {
         System.out.println("saved instance " + savedInstanceState);
         if (savedInstanceState != null){
             board_cells_array = savedInstanceState.getIntArray("Board cells");
+            backendMatrix = (BackendMatrix) savedInstanceState.getSerializable("Backend matrix");
+            playerPinkTurn = savedInstanceState.getBoolean("Player turn");
+            pinkWins = savedInstanceState.getInt("Pink wins");
+            blueWins = savedInstanceState.getInt("Blue wins");
+            already_used_cells = savedInstanceState.getIntegerArrayList("Already used cells");
+            System.out.println("Saved backend matrix ");
+            backendMatrix.print2D();
         }
         else{
-            System.out.println(" yes it was " + null);
             cleanGameBoard();
+            backendMatrix = new BackendMatrix(gridSize);
+            playerPinkTurn = roundCount % 2 == 0;
+            System.out.println("First backend matrix ");
+            backendMatrix.print2D();
         }
         System.out.println(Arrays.toString(board_cells_array));
         boardAdapter = new EmptyBoardGridAdapter(this, board_cells_array, already_used_cells);
         gameBoard.setAdapter(boardAdapter);
 
-        playerPinkTurn = roundCount % 2 == 0; //for pair counted rounds pink player will start
+         //for pair counted rounds pink player will start
 
 
         //On Click event for Single GridView Item
@@ -62,22 +77,34 @@ public class DoublePlayer extends AppCompatActivity {
                 ImageView single_cell_image = (ImageView) view;
                 //single_cell_image.setImageResource(R.drawable.pink);
 
-                //we need row and column instead of index to write down to matrix
-                // x : horizontal position in range [0; columns-1]
-                // y : vertical position in range [0; rows-1]
-
-                x = position % numberOfColumns;
-                y = position / numberOfColumns;
-
 
                 if(playerPinkTurn){
-                    board_cells_array[position] = R.drawable.pink;}
+                    board_cells_array[position] = R.drawable.pink;
+                    backendMatrix.setMatrixCell(position, 1);
+                }
                 else{
-                    board_cells_array[position] = R.drawable.blue;}
+                    board_cells_array[position] = R.drawable.blue;
+                    backendMatrix.setMatrixCell(position, 2);
+                    }
                 already_used_cells.add(position);
                 boardAdapter.notifyDataSetChanged();
-                playerPinkTurn = !playerPinkTurn;
-                System.out.println(Arrays.toString(board_cells_array));
+
+                if (backendMatrix.areFiveConnected(1)){
+                    pinkHasWon();
+                }
+                else if (backendMatrix.areFiveConnected(2)){
+                    blueHasWon();
+                }
+                else if (isBoardFull()){
+                    itsDraw();
+                }
+                else{
+                    playerPinkTurn = !playerPinkTurn;
+                }
+
+                System.out.println("Already used cells " + already_used_cells.size());
+                System.out.println("Backend matrix after click ");
+                backendMatrix.print2D();
             }
 
         });
@@ -93,7 +120,13 @@ public class DoublePlayer extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
         state.putIntArray("Board cells", board_cells_array);
-        System.out.println("Saved" + Arrays.toString(board_cells_array));
+        state.putSerializable("Backend matrix", backendMatrix);
+        state.putIntegerArrayList("Already used cells", (ArrayList<Integer>) already_used_cells);
+        state.putBoolean("Player turn", playerPinkTurn);
+        state.putInt("Pink wins", pinkWins);
+        state.putInt("Blue wins", blueWins);
+        System.out.println("Saved");
+        backendMatrix.print2D();
     }
 
     protected void cleanGameBoard(){
@@ -104,6 +137,41 @@ public class DoublePlayer extends AppCompatActivity {
         cleanGameBoard();
         boardAdapter.notifyDataSetChanged();
         roundCount++;
+        backendMatrix.clearBackendMatrix();
+    }
+
+    protected boolean isBoardFull(){
+        if (already_used_cells.size() == Math.pow(gridSize, 2)) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    protected void itsDraw(){
+        Toast toast = Toast.makeText(this, "IT'S A DRAW!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
+        restartGame();
+    }
+
+    protected void pinkHasWon(){
+        Toast toast = Toast.makeText(this, "PINK HAS WON THE GAME!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+        pinkWins++;
+        System.out.println("Pink Wins: " + pinkWins);
+        restartGame();
+    }
+
+    protected void blueHasWon(){
+        Toast toast = Toast.makeText(this, "BLUE HAS WON THE GAME!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+        blueWins++;
+        System.out.println("Blue Wins: " + blueWins);
+        restartGame();
     }
 
 }
