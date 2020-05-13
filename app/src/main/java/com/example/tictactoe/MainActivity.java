@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         case R.id.single_player : intent = new Intent(this,SinglePlayer.class);startActivity(intent); break;
         case R.id.double_player : intent = new Intent(this,DoublePlayer.class);startActivity(intent); break;
         case R.id.score_board : intent =  new Intent(this,ScoreBoard.class); startActivity(intent);break;
-        case R.id.game_exit : intent = new Intent(this,ExitGame.class); startActivity(intent);break;
+        case R.id.game_exit : finish();break;
         default: break;
         }
 

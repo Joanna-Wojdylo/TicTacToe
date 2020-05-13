@@ -114,7 +114,11 @@ public class DoublePlayer extends AppCompatActivity {
 
         endGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("pinkWins",pinkWins);
+                bundle.putInt("blueWins", blueWins);
                 Intent intent = new Intent(getApplicationContext(), EndGameDouble.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

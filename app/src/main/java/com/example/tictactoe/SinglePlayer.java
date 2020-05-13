@@ -53,6 +53,7 @@ public class SinglePlayer extends AppCompatActivity {
 
         final GridView gameBoard = (GridView) findViewById(R.id.board_grid_view);
         Button restartGameButton = (Button) findViewById(R.id.restartGame);
+        Button endGame = (Button) findViewById(R.id.endGame);
 
         if (savedInstanceState != null){
             board_cells_array = savedInstanceState.getIntArray("Board cells");
@@ -128,6 +129,16 @@ public class SinglePlayer extends AppCompatActivity {
         restartGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 restartGame();
+            }
+        });
+
+        endGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("pinkWins",pinkWins);
+                Intent intent = new Intent(getApplicationContext(), EndGameSingle.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

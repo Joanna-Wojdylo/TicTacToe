@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExitGame"></activity>
         <activity android:name=".ScoreBoard" />
         <activity android:name=".DoublePlayer" />
+        <activity android:name=".EndGameSingle" />
+        <activity android:name=".EndGameDouble" />
         <activity android:name=".SinglePlayer" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EndGameDouble" />
+
     </application>
 
 </manifest>
