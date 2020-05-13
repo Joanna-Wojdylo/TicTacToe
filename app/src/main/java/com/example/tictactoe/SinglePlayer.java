@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Adapter;
@@ -32,6 +34,14 @@ public class SinglePlayer extends AppCompatActivity {
     private int gridSize = 10;
     private BackendMatrix backendMatrix;
 
+    Handler computer_move_handler = new Handler();
+
+    final Runnable run_with_delay = new Runnable() {
+        @Override
+        public void run() {
+            computerMove();
+        }
+    };
     public SinglePlayer() {
     }
 
@@ -58,7 +68,7 @@ public class SinglePlayer extends AppCompatActivity {
         else{
             cleanGameBoard();
             backendMatrix = new BackendMatrix(gridSize);
-            playerPinkTurn = roundCount % 2 == 0;
+            playerPinkTurn = true;
             initializeCurrentlyFreeFields();
             System.out.println("Currently Free Fields" + currently_free_fields);
 
@@ -79,32 +89,33 @@ public class SinglePlayer extends AppCompatActivity {
                 ImageView single_cell_image = (ImageView) view;
                 //single_cell_image.setImageResource(R.drawable.pink);
 
-
-                    board_cells_array[position] = R.drawable.pink;
-                    backendMatrix.setMatrixCell(position, 1);
-
-                    already_used_cells.add(position);
-                    currently_free_fields.remove(new Integer(position));
-                    boardAdapter.notifyDataSetChanged();
-                    //now time for computer move - random
-
-                    System.out.println("Currently free fields: " + currently_free_fields);
-                    int position_2 = getRandomFreeElement(currently_free_fields);
-                    board_cells_array[position_2] = R.drawable.blue;
-                    backendMatrix.setMatrixCell(position_2, 2);
-                    already_used_cells.add(position_2);
-                    currently_free_fields.remove(new Integer(position));
-                    boardAdapter.notifyDataSetChanged();
-
-                if (backendMatrix.areFiveConnected(1)){
+                    if (playerPinkTurn) {
+                        board_cells_array[position] = R.drawable.pink1;
+                        boardAdapter.notifyDataSetChanged();
+                        backendMatrix.setMatrixCell(position, 1);
+                        already_used_cells.add(position);
+                        currently_free_fields.remove(new Integer(position));
+                    }
+                    else{
+                        return;
+                    }
+                    if (backendMatrix.areFiveConnected(1)){
                     pinkHasWon();
-                }
-                else if (backendMatrix.areFiveConnected(2)){
-                    blueHasWon();
-                }
-                else if (isBoardFull()){
-                    itsDraw();
-                }
+                    }
+                    else if(isBoardFull()){
+                        itsDraw();
+                    }
+                    else{
+                        playerPinkTurn = false;
+                        //now time for computer move - random
+                        computer_move_handler.postDelayed(run_with_delay, 700);
+                    }
+                    if(backendMatrix.areFiveConnected(2)){
+                        blueHasWon();
+                    }
+                    else if (isBoardFull()){
+                        itsDraw();
+                    }
 
 
                 System.out.println("Already used cells " + already_used_cells.size());
@@ -136,7 +147,7 @@ public class SinglePlayer extends AppCompatActivity {
     }
 
     protected void cleanGameBoard(){
-        Arrays.fill(board_cells_array,R.drawable.empty_ring);
+        Arrays.fill(board_cells_array,R.drawable.empty_ring1);
         already_used_cells.clear();
     }
     protected void restartGame(){
@@ -159,7 +170,6 @@ public class SinglePlayer extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "IT'S A DRAW!", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-
         restartGame();
     }
 
@@ -191,6 +201,14 @@ public class SinglePlayer extends AppCompatActivity {
         int rnd = (int)(Math.random()*currently_free_fields.size());
         return (int) currently_free_fields.get(rnd);
     }
-
+    protected void computerMove(){
+        int position_2 = getRandomFreeElement(currently_free_fields);
+        board_cells_array[position_2] = R.drawable.blue1;
+        boardAdapter.notifyDataSetChanged();
+        backendMatrix.setMatrixCell(position_2, 2);
+        already_used_cells.add(position_2);
+        currently_free_fields.remove(new Integer(position_2));
+        playerPinkTurn = !playerPinkTurn;
+    }
 
 }

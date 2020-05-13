@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +38,7 @@ public class DoublePlayer extends AppCompatActivity {
 
         final GridView gameBoard = (GridView) findViewById(R.id.board_grid_view);
         Button restartGameButton = (Button) findViewById(R.id.restartGame);
-
+        Button endGame = (Button) findViewById(R.id.endGame);
 
 
         System.out.println("saved instance " + savedInstanceState);
@@ -51,14 +48,14 @@ public class DoublePlayer extends AppCompatActivity {
             playerPinkTurn = savedInstanceState.getBoolean("Player turn");
             pinkWins = savedInstanceState.getInt("Pink wins");
             blueWins = savedInstanceState.getInt("Blue wins");
-            already_used_cells = savedInstanceState.getIntegerArrayList("Already used cells");
+
             System.out.println("Saved backend matrix ");
             backendMatrix.print2D();
         }
         else{
             cleanGameBoard();
             backendMatrix = new BackendMatrix(gridSize);
-            playerPinkTurn = roundCount % 2 == 0;
+            playerPinkTurn = true;
             System.out.println("First backend matrix ");
             backendMatrix.print2D();
         }
@@ -79,11 +76,11 @@ public class DoublePlayer extends AppCompatActivity {
 
 
                 if(playerPinkTurn){
-                    board_cells_array[position] = R.drawable.pink;
+                    board_cells_array[position] = R.drawable.pink1;
                     backendMatrix.setMatrixCell(position, 1);
                 }
                 else{
-                    board_cells_array[position] = R.drawable.blue;
+                    board_cells_array[position] = R.drawable.blue1;
                     backendMatrix.setMatrixCell(position, 2);
                     }
                 already_used_cells.add(position);
@@ -115,6 +112,13 @@ public class DoublePlayer extends AppCompatActivity {
             }
         });
 
+        endGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EndGameDouble.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     protected void onSaveInstanceState(Bundle state) {
@@ -130,13 +134,14 @@ public class DoublePlayer extends AppCompatActivity {
     }
 
     protected void cleanGameBoard(){
-        Arrays.fill(board_cells_array,R.drawable.empty_ring);
+        Arrays.fill(board_cells_array,R.drawable.empty_ring1);
         already_used_cells.clear();
     }
     protected void restartGame(){
         cleanGameBoard();
         boardAdapter.notifyDataSetChanged();
         roundCount++;
+        playerPinkTurn = roundCount % 2 == 0;
         backendMatrix.clearBackendMatrix();
     }
 
@@ -152,7 +157,6 @@ public class DoublePlayer extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "IT'S A DRAW!", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-
         restartGame();
     }
 
