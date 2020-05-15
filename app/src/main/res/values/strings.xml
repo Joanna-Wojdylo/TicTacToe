@@ -6,4 +6,6 @@
     <string name="skip">Skip</string>
     <string name="save_your_score_neon">Save your score neon</string>
     <string name="save_single_score">SAVE SCORE</string>
+    <string name="top_10_scores">Top 10 Scores</string>
+    <string name="back_to_menu">BACK TO MENU</string>
 </resources>

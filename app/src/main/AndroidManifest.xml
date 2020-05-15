@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScoreBoard" />
-        <activity android:name=".DoublePlayer" />
-        <activity android:name=".EndGameSingle" />
-        <activity android:name=".EndGameDouble" />
-        <activity android:name=".SinglePlayer" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.ScoreBoard" />
+        <activity android:name=".views.DoublePlayer" />
+        <activity android:name=".views.EndGameSingle" />
+        <activity android:name=".views.EndGameDouble" />
+        <activity android:name=".views.SinglePlayer" />
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
