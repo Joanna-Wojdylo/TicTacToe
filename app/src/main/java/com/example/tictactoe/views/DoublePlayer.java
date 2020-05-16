@@ -1,15 +1,15 @@
 package com.example.tictactoe.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.res.Configuration;
@@ -65,11 +65,11 @@ public class DoublePlayer extends AppCompatActivity {
 
 
 
-        final GridView gameBoard = (GridView) findViewById(R.id.board_grid_view);
-        Button restartGameButton = (Button) findViewById(R.id.restartGame);
-        Button endGame = (Button) findViewById(R.id.endGame);
-        final ImageView points_pink = (ImageView) findViewById(R.id.points_pink);
-        final ImageView points_blue = (ImageView) findViewById(R.id.points_blue);
+        final GridView gameBoard = findViewById(R.id.board_grid_view);
+        ImageButton restartGameButton = findViewById(R.id.restartGame);
+        ImageButton endGame = findViewById(R.id.endGame);
+        final ImageView points_pink = findViewById(R.id.points_pink);
+        final ImageView points_blue = findViewById(R.id.points_blue);
 
 
         System.out.println("saved instance " + savedInstanceState);
@@ -102,7 +102,6 @@ public class DoublePlayer extends AppCompatActivity {
         gameBoard.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView single_cell_image = (ImageView) view;
                 //single_cell_image.setImageResource(R.drawable.pink);
 
 
@@ -158,7 +157,7 @@ public class DoublePlayer extends AppCompatActivity {
 
     }
     @Override
-    protected void onSaveInstanceState(Bundle state) {
+    protected void onSaveInstanceState(@NonNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putIntArray("Board cells", board_cells_array);
         state.putSerializable("Backend matrix", backendMatrix);
@@ -184,11 +183,7 @@ public class DoublePlayer extends AppCompatActivity {
     }
 
     protected boolean isBoardFull(){
-        if (already_used_cells.size() == Math.pow(gridSize, 2)) {
-            return true;
-        }
-        else
-            return false;
+        return already_used_cells.size() == Math.pow(gridSize, 2);
     }
 
     protected void itsDraw(){

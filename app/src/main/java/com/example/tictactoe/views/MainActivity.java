@@ -9,12 +9,12 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.tictactoe.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button singlePlayer, doublePlayer, scoreBoard, gameExit;
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         //defining buttons
-        singlePlayer = (Button) findViewById(R.id.single_player);
-        doublePlayer = (Button) findViewById(R.id.double_player);
-        scoreBoard = (Button) findViewById(R.id.score_board);
-        gameExit = (Button) findViewById(R.id.game_exit);
+        ImageButton singlePlayer = findViewById(R.id.single_player);
+        ImageButton doublePlayer = findViewById(R.id.double_player);
+        ImageButton scoreBoard = findViewById(R.id.score_board);
+        ImageButton gameExit = findViewById(R.id.game_exit);
         //adding click listeners to buttons
         singlePlayer.setOnClickListener(this);
         doublePlayer.setOnClickListener(this);

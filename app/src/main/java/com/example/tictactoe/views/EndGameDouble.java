@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,12 +43,12 @@ public class EndGameDouble extends AppCompatActivity {
         setContentView(R.layout.end_game_double_layout);
 
 
-        Button end_without_saving = (Button) findViewById(R.id.skip_saving);
-        Button save_and_open_board = (Button) findViewById(R.id.save_to_score_board);
-        final EditText pink_name = (EditText) findViewById(R.id.enter_pink_name);
-        final EditText blue_name = (EditText) findViewById(R.id.enter_blue_name);
-        final ImageView points_pink = (ImageView) findViewById(R.id.points_pink);
-        final ImageView points_blue = (ImageView) findViewById(R.id.points_blue);
+        ImageButton end_without_saving = findViewById(R.id.skip_saving);
+        ImageButton save_and_open_board = findViewById(R.id.save_to_score_board);
+        final EditText pink_name = findViewById(R.id.enter_pink_name);
+        final EditText blue_name = findViewById(R.id.enter_blue_name);
+        final ImageView points_pink = findViewById(R.id.points_pink);
+        final ImageView points_blue = findViewById(R.id.points_blue);
         db = new DatabaseHelper(this);
         getScores();
         points_pink.setImageResource(pink_point_list[pinkWins]);

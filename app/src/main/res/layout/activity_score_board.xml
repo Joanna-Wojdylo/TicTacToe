@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:contentDescription="@string/top_10_scores"
-        android:src="@drawable/top_10_players"
+        android:src="@drawable/top10players"
+        android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_weight="0.20"/>
 
@@ -28,7 +29,7 @@
         android:cacheColorHint="#FFFFFF"
         android:layout_weight="0.70"
         />
-    <Button
+    <ImageButton
         android:id="@+id/back_to_menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,6 +38,8 @@
         android:text="@string/back_to_menu"
         android:textColor="#fff"
         android:textSize="20sp"
-        android:layout_weight="0.1"/>
+        android:layout_weight="0.1"
+        android:src="@drawable/back_to_menu"
+        android:scaleType="centerInside"/>
 
 </LinearLayout>

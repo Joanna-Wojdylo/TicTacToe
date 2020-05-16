@@ -15,7 +15,8 @@
     android:id="@+id/imageView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:src="@drawable/save_score"
+    android:padding="10dp"
+    android:src="@drawable/save_your_score2"
     app:layout_constraintTop_toTopOf="parent"
     android:contentDescription="@string/save_your_score_neon"
     android:layout_weight="0.25"/>
@@ -67,7 +68,7 @@
         >
 
 
-        <Button
+        <ImageButton
             android:id="@+id/save_to_score_board_single"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -79,9 +80,11 @@
             android:padding="10dp"
             android:text="@string/save_single_score"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:src="@drawable/savescore1"
+            android:scaleType="centerInside"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/skip_saving_single"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -93,7 +96,9 @@
             android:padding="10dp"
             android:text="@string/skip"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:src="@drawable/skip"
+            android:scaleType="centerInside"/>
 
 
     </LinearLayout>

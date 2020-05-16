@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.DoublePlayer"
     android:background="#000"
     android:orientation="horizontal"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:baselineAligned="false">
 
 
     <LinearLayout
@@ -28,9 +28,10 @@
             android:cropToPadding="true"
             android:paddingTop="15dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/pink_1" />
+            android:src="@drawable/pink_1"
+            />
 
-        <Button
+        <ImageButton
             android:id="@+id/restartGame"
             android:layout_width="141dp"
             android:layout_height="50dp"
@@ -42,9 +43,8 @@
             android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
-            android:text="Restart Game"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+            android:src="@drawable/restart_game"
+            android:scaleType="fitCenter"/>
     </LinearLayout>
 
     <GridView
@@ -68,7 +68,8 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_gravity="right"
-        android:layout_weight="0.23">
+        android:layout_weight="0.23"
+        tools:ignore="RtlHardcoded">
 
         <ImageView
             android:id="@+id/points_blue"
@@ -83,7 +84,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/blue_1" />
 
-        <Button
+        <ImageButton
             android:id="@+id/endGame"
             android:layout_width="134dp"
             android:layout_height="50dp"
@@ -95,10 +96,9 @@
             android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
-            android:text="End Game"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/end_game"
+            android:scaleType="fitCenter"/>
 
     </LinearLayout>
 </LinearLayout>

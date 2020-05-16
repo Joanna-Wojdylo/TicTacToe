@@ -1,5 +1,6 @@
 package com.example.tictactoe.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,8 +11,8 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -73,11 +74,11 @@ public class SinglePlayer extends AppCompatActivity {
                 break;
         }
 
-        final GridView gameBoard = (GridView) findViewById(R.id.board_grid_view);
-        Button restartGameButton = (Button) findViewById(R.id.restartGame);
-        Button endGame = (Button) findViewById(R.id.endGame);
-        final ImageView points_pink = (ImageView) findViewById(R.id.points_pink);
-        final ImageView points_blue = (ImageView) findViewById(R.id.points_blue);
+        final GridView gameBoard = findViewById(R.id.board_grid_view);
+        ImageButton restartGameButton = findViewById(R.id.restartGame);
+        ImageButton endGame = findViewById(R.id.endGame);
+        final ImageView points_pink = findViewById(R.id.points_pink);
+        final ImageView points_blue = findViewById(R.id.points_blue);
 
         if (savedInstanceState != null){
             board_cells_array = savedInstanceState.getIntArray("Board cells");
@@ -112,15 +113,13 @@ public class SinglePlayer extends AppCompatActivity {
         gameBoard.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView single_cell_image = (ImageView) view;
-                //single_cell_image.setImageResource(R.drawable.pink);
 
                     if (playerPinkTurn) {
                         board_cells_array[position] = R.drawable.pink1;
                         boardAdapter.notifyDataSetChanged();
                         backendMatrix.setMatrixCell(position, 1);
                         already_used_cells.add(position);
-                        currently_free_fields.remove(new Integer(position));
+                        currently_free_fields.remove(Integer.valueOf(position));
                     }
                     else{
                         return;
@@ -171,7 +170,7 @@ public class SinglePlayer extends AppCompatActivity {
 
     }
     @Override
-    protected void onSaveInstanceState(Bundle state) {
+    protected void onSaveInstanceState(@NonNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putIntArray("Board cells", board_cells_array);
         state.putSerializable("Backend matrix", backendMatrix);
@@ -197,11 +196,7 @@ public class SinglePlayer extends AppCompatActivity {
     }
 
     protected boolean isBoardFull(){
-        if (already_used_cells.size() == Math.pow(gridSize, 2)) {
-            return true;
-        }
-        else
-            return false;
+        return already_used_cells.size() == Math.pow(gridSize, 2);
     }
 
     protected void itsDraw(){
@@ -237,7 +232,7 @@ public class SinglePlayer extends AppCompatActivity {
 
     protected int getRandomFreeElement(List<Integer> currently_free_fields) {
         int rnd = (int)(Math.random()*currently_free_fields.size());
-        return (int) currently_free_fields.get(rnd);
+        return currently_free_fields.get(rnd);
     }
     protected void computerMove(){
         int position_2 = getRandomFreeElement(currently_free_fields);
@@ -245,7 +240,7 @@ public class SinglePlayer extends AppCompatActivity {
         boardAdapter.notifyDataSetChanged();
         backendMatrix.setMatrixCell(position_2, 2);
         already_used_cells.add(position_2);
-        currently_free_fields.remove(new Integer(position_2));
+        currently_free_fields.remove(Integer.valueOf(position_2));
         playerPinkTurn = !playerPinkTurn;
     }
     protected void clearPinkScore(ImageView pink_points){
