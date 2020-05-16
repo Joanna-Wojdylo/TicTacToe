@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TicTacToe</string>
+    <string name="app_name">Pink &amp; Blue</string>
     <string name="enter_pink_player_name">Enter pink player name</string>
     <string name="enter_blue_player_name">Enter blue player name</string>
     <string name="save_scores">Save scores</string>
@@ -8,4 +8,9 @@
     <string name="save_single_score">SAVE SCORE</string>
     <string name="top_10_scores">Top 10 Scores</string>
     <string name="back_to_menu">BACK TO MENU</string>
+    <string name="scoreboard">Scoreboard</string>
+    <string name="exit_game">Exit Game</string>
+    <string name="double_player">Double Player</string>
+    <string name="single_player">Single Player</string>
+    <string name="game_name">Game name</string>
 </resources>

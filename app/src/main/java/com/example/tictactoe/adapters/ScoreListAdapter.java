@@ -59,7 +59,7 @@ public class ScoreListAdapter extends BaseAdapter {
 
         final Items m = itemsList.get(position);
         holder.name.setText(m.getName());
-        holder.score.setText(m.getScore());
+        holder.score.setText(String.valueOf(m.getScore()));
 
         return scoreView;
     }

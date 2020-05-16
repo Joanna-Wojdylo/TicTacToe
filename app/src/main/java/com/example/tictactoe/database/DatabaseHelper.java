@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
 
     }
-    public long insertScore(String name, String score) {
+    public long insertScore(String name, int score) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 Items item = new Items();
                 item.setName(cursor.getString(cursor.getColumnIndex(Items.COLUMN_NAME)));
-                item.setScore(cursor.getString(cursor.getColumnIndex(Items.COLUMN_SCORE)));
+                item.setScore(cursor.getInt(cursor.getColumnIndex(Items.COLUMN_SCORE)));
 
                 items.add(item);
             } while (cursor.moveToNext());

@@ -8,25 +8,36 @@
     android:orientation="vertical"
     tools:context=".views.EndGameSingle"
     android:background="#000"
+    android:weightSum="1"
     >
 
     <ImageView
     android:id="@+id/imageView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
     android:src="@drawable/save_score"
     app:layout_constraintTop_toTopOf="parent"
-    android:contentDescription="@string/save_your_score_neon" />
+    android:contentDescription="@string/save_your_score_neon"
+    android:layout_weight="0.25"/>
 
     <ImageView
         android:id="@+id/points_pink"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="0.3"
         android:scaleType="centerInside"
         android:src="@drawable/pink_1" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="0.15"
+        android:gravity="center|bottom"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        >
     <EditText
         android:id="@+id/enter_pink_name_single"
         android:layout_width="300dp"
@@ -41,6 +52,7 @@
 
         <requestFocus />
     </EditText>
+    </LinearLayout>
 
 
 
@@ -48,10 +60,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
+        android:layout_weight="0.3"
         android:gravity="center|bottom"
         android:orientation="vertical"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        >
 
 
         <Button
@@ -75,7 +88,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
             android:text="@string/skip"

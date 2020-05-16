@@ -6,33 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#000"
-    tools:context=".views.ScoreBoard">
+    tools:context=".views.ScoreBoard"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/top_10_scores"
         android:src="@drawable/top_10_players"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="0.20"/>
 
     <ListView
         android:id="@+id/score_list"
         android:layout_width="fill_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:paddingBottom="5dp"
         android:clipToPadding="false"
         android:dividerHeight="1dp"
         android:cacheColorHint="#FFFFFF"
+        android:layout_weight="0.70"
         />
     <Button
         android:id="@+id/back_to_menu"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:background="#000"
         android:padding="10dp"
         android:text="@string/back_to_menu"
         android:textColor="#fff"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_weight="0.1"/>
 
 </LinearLayout>

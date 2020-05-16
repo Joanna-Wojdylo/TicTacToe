@@ -47,7 +47,7 @@ public class EndGameSingle extends AppCompatActivity {
 
 
                 if(!TextUtils.isEmpty(pink_name_to_save)){
-                    db.insertScore(pink_name.getText().toString(), String.valueOf(pinkWins));}
+                    db.insertScore(pink_name.getText().toString(), pinkWins);}
                 Intent intent = new Intent(getApplicationContext(), ScoreBoard.class);
                 startActivity(intent);
 

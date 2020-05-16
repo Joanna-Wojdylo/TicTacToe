@@ -64,9 +64,9 @@ public class EndGameDouble extends AppCompatActivity {
                 String blue_name_to_save = blue_name.getText().toString();
 
                 if(!TextUtils.isEmpty(pink_name_to_save)){
-                db.insertScore(pink_name.getText().toString(), String.valueOf(pinkWins));}
+                db.insertScore(pink_name.getText().toString(), pinkWins);}
                 if(!TextUtils.isEmpty(blue_name_to_save)){
-                db.insertScore(blue_name.getText().toString(),String.valueOf(blueWins));}
+                db.insertScore(blue_name.getText().toString(),blueWins);}
                 Intent intent = new Intent(getApplicationContext(), ScoreBoard.class);
                 startActivity(intent);
 

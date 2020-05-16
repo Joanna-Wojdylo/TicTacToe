@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:exported="true"
@@ -8,31 +8,33 @@
     android:orientation="vertical"
     tools:context=".views.MainActivity"
     android:background="#000"
+    android:weightSum="1"
     >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="10dp"
-        android:src="@drawable/logo"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/logo_dust"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/game_name"
+        android:layout_weight="0.60"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.4"
         android:gravity="center"
-        >
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/single_player"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
@@ -41,57 +43,61 @@
             android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
-            android:text="Single Player"
+            android:text="@string/single_player"
             android:textColor="#fff"
             android:textSize="20sp"
-            />
+            android:src="@drawable/single_player"
+            android:scaleType="centerInside"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/double_player"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
-            android:text="Double Player"
+            android:text="@string/double_player"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:src="@drawable/double_player"
+            android:scaleType="centerInside"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/score_board"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
-            android:text="Score Board"
+            android:text="@string/scoreboard"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:src="@drawable/score_board"
+            android:scaleType="centerInside"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/game_exit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:background="#000"
             android:padding="10dp"
-            android:text="Exit Game"
+            android:text="@string/exit_game"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:src="@drawable/exit_game"
+            android:scaleType="centerInside"/>
 
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
